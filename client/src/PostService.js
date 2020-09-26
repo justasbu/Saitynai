@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'https://jbservices.herokuapp.com/api/posts/';
+const url = 'https://jbservices.herokuapp.com/server/api/posts/';
 
 class PostService {
     // Get Posts
