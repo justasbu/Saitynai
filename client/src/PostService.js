@@ -31,7 +31,7 @@ class PostService {
     }
 
     //Delte Posts
-    static deletePost(id){
+    static deletePost(_id){
         return axios.delete(`${url}${_id}`)
     }
 }
