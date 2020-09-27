@@ -12,6 +12,7 @@ class PostService {
                 resolve(
                     data.map(post => ({
                         ...post,
+                        text,
                         createdAt: new Date(post.createdAt)
                     }))
                 );
