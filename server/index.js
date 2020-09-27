@@ -2,30 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser'); //parser for json
 const path = require('path');
 const app = express(); 
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-const mongoose = require('mongoose');
-require('dotenv').config();
 
-//Middleware
+
 app.use(bodyParser.json())
-app.use(express.static(path.resolve('dist/')));
+app.use(cors());
 
-//Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-//route to index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve('/dist/index.html'));
-});
-
-//route to api/clients
-const clients = require('./routes/clients');
-app.use('/clients', clients);
-
-//route to api/providers
-const providers = require('./routes/providers');
-app.use('/providers', providers);
+const posts = require('./routes/posts')
+app.use('/posts',posts)
 
 //Handle production
 
