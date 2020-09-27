@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const url = 'api/posts/';
+const url = '/posts/';
 
 class PostService {
     // Get Posts
- 
+
     static getPosts() {
         return new Promise ((resolve,reject) => {
             axios.get(url).then((res) => {

@@ -8,6 +8,14 @@ router.get('/', async (req,res) => {
    const posts = await loadPostsCollection();
    res.send(await posts.find({}).toArray());
 });
+
+//Get post
+
+router.get('/:_', async (req,res) => {
+    const post = await loadPostsCollection();
+    res.send(await post.find({}).toArray());
+ });
+
 //Add Post
 router.post('/', async (req, res) => {
     const posts = await loadPostsCollection();
