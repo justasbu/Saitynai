@@ -11,7 +11,7 @@ router.get('/', async (req,res) => {
 
 //Get post
 
-router.get('/:_', async (req,res) => {
+router.get('/:_id', async (req,res) => {
     const post = await loadPostsCollection();
     res.send(await post.find({}).toArray());
  });
