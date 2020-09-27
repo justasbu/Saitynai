@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser'); //parser for json
-const path = require('path');
+const cors = require('cors');
+
 const app = express(); 
 
 
