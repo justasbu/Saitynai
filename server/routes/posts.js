@@ -13,7 +13,7 @@ router.get('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
     const post = await loadPostsCollection();
-    res.send(await post.findOne({_id: req.params._id});
+    res.send(await post.findOne({}).toArray());
 
  });
 
