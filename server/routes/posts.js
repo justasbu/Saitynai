@@ -14,7 +14,7 @@ router.get('/', async (req,res) => {
 router.get('/:id', async (req,res) => {
     const post = await loadPostsCollection();
     await post.findOne({_id: new mongodb.ObjectID(req.params._id)});
-    res.status(200).send(data)
+    res.status(200).send(res)
  });
 
 //Add Post
