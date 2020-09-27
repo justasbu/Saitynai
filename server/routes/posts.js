@@ -8,7 +8,6 @@ router.get('/', async (req,res) => {
    const posts = await loadPostsCollection();
    res.send(await posts.find({}).toArray());
 });
-
 //Get post
 
 router.get('/:id', async (req,res) => {
