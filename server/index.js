@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(express.static(path.resolve('dist/')));
 
 //Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //route to index.html
 app.get('/', (req, res) => {
@@ -27,26 +27,17 @@ app.use('/clients', clients);
 const providers = require('./routes/providers');
 app.use('/providers', providers);
 
-// mongo and server
-const port = process.env.PORT_DOCKER;
-const options = {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex:true,
-};
+//Handle production
 
-//start mongo
-mongoose.connect(`mongodb://${process.env.MONGO_HOST}/${process.env.MONGO_DB}`, options);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log('WE ARE CONNECTED TO MONGODB!');
+if (process.env.NODE_ENV === 'production'){
+    //static folder
+    app.use(express.static(__dirname + '/public'));
 
-    //and start server
-    app.listen(port, function () {
-        setTimeout(function() {
-            console.log(`LISTENING ON PORT ${process.env.PORT_MACHINE}...`);
-        }, 2000);
+    //handle SPA
 
-    });
-});
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+
+}
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`Server started on port ${port}.`));
