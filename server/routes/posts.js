@@ -13,7 +13,7 @@ router.get('/', async (req,res) => {
 
 router.get('/id', async (req,res) => {
     const post = await loadPostsCollection();
-    res.send(await post.find({_id: req.params._id}).toArray());
+    res.send(await post.find({}).toArray(_id));
  });
 
 //Add Post
