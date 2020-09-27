@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(express.static(path.resolve('dist/')));
 
 //Swagger
-//app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //route to index.html
 app.get('/', (req, res) => {
