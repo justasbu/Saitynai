@@ -11,9 +11,9 @@ router.get('/', async (req,res) => {
 
 //Get post
 
-router.get('/:_id', async (req,res) => {
+router.get('/id', async (req,res) => {
     const post = await loadPostsCollection();
-    res.send(post.find({_id: new mongodb.ObjectID(req.params._id)}));
+    res.send(await post.find({_id: req.params}).toArray());
  });
 
 //Add Post
