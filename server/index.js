@@ -13,7 +13,7 @@ app.use('/posts',posts)
 
 
 const providers = require('./routes/providers')
-app.use('/providers',posts)
+app.use('/providers',providers)
 
 const clients = require('./routes/clients')
 app.use('/clients',clients)
