@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Provider = require('./providers')
+const Provider = require('./provider_model')
 
 const schemaClient = new Schema({
     name: {
