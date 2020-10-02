@@ -9,6 +9,8 @@ app.use(bodyParser.json())
 app.use(cors());
 
 
+const clients = require('./routes/clients')
+app.use('/clients',clients)
 
 //Handle production
 
