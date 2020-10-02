@@ -1,70 +1,55 @@
-
 const express = require('express');
 const mongodb = require('mongodb');
-const Client = require('./models/client_model');
 
 const router = express.Router();
 
-// Get one client
-router.get('/:id', function (req, res) {
-   Client.findOne({_id: req.params.id}).populate('providers').exec( function (err, data) {
-      if (err) return res.status(404).send(err);
-      res.send(data);
-   });
+// Get posts
+router.get('/', async (req,res) => {
+   const posts = await loadPostsCollection();
+   res.send(await posts.find({}).toArray());
+});
+//Get post
+
+router.get('/:id', async (req,res) => {
+    const post = await loadPostsCollection();
+    await post.findOne({_id: new mongodb.ObjectID(req.params._id)});
+    res.status(200).send(res)
+ });
+
+//Add Post
+router.post('/', async (req, res) => {
+    const posts = await loadPostsCollection();
+    await posts.insertOne({
+        text: req.body.text,
+        createdAt: new Date()
+    });
+    res.status(201).send();
 });
 
-// Get all clients
-router.get('/', function (req, res) {
-   Client.find().sort('name').populate('providers').exec(function (err, data) {
-      if (err) return res.status(404).send(err);
-      res.send(data);
-   });
+ 
+//Delete Post
+router.delete('/:_id', async (req, res) => {
+    const posts = await loadPostsCollection();
+    await posts.deleteOne({_id: new mongodb.ObjectID(req.params._id)});
+    res.status(200).send('Deleted user /:_id');
 });
 
-// Add client
-router.post('/', function (req, res) {
+//connection
+async function loadPostsCollection() {
+    const client = await mongodb.MongoClient.connect(
+        'mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
+        {
+            useNewUrlParser: true
+        });
+    
+    client.connect(err => {
+        const collection = client.db("test").collection("devices");
+        // perform actions on the collection object
+        client.close();
+        });
 
-   //validate provider's field
-   if (req.body.providers.length === 0)
-      return res.status(409).send(["Field `Providers` is required"]);
-
-   // init() for validation unique name
-   Client.init().then(function() {
-      //if unique
-      Client.create({
-         name: req.body.name,
-         email: req.body.email,
-      },
-          function (err) {
-            if (err) return res.status(409).send(errors_client(err));
-            res.status(201).send();
-      });
-   })
-       //if not unique
-       .catch(err =>{
-          if (err) return res.status(409).send(errors_client(err));
-       })
-});
-
-// Delete client
-router.delete('/:id', function (req, res) {
-   Client.deleteOne({_id: req.params.id}, function (err) {
-      if (err) return res.status(404).send(err);
-      res.status(200).send();
-   });
-});
-
-// Update client
-router.put('/:id', function (req, res) {
-
-   //validate provider's field
-   if (req.body.providers.length === 0)
-      return res.status(409).send(["Field `Providers` is required"]);
-
-   Client.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}, function(err) {
-      if (err) return res.status(409).send(errors_client(err));
-      res.status(200).send();
-   });
-});
+        return client.db('cluster0').collection('posts');
+    
+}
 
 module.exports = router;

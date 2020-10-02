@@ -1,53 +1,55 @@
 const express = require('express');
 const mongodb = require('mongodb');
-const Providers = require('./models/provider_model');
+
 const router = express.Router();
 
-// Get all providers
-router.get('/', function (req, res) {
-   Providers.find().sort('name').exec(function (err, data) {
-      if (err) return res.status(404).send(err);
-      res.send(data);
-   });
+// Get posts
+router.get('/', async (req,res) => {
+   const posts = await loadPostsCollection();
+   res.send(await posts.find({}).toArray());
+});
+//Get post
+
+router.get('/:id', async (req,res) => {
+    const post = await loadPostsCollection();
+    await post.findOne({_id: new mongodb.ObjectID(req.params._id)});
+    res.status(200).send(res)
+ });
+
+//Add Post
+router.post('/', async (req, res) => {
+    const posts = await loadPostsCollection();
+    await posts.insertOne({
+        text: req.body.text,
+        createdAt: new Date()
+    });
+    res.status(201).send();
 });
 
-// Get one provider
-router.get('/:id', function (req, res) {
-   Providers.findOne({_id: req.params.id}, function (err, data) {
-      if (err) return res.status(404).send(err);
-      res.send(data);
-   });
+ 
+//Delete Post
+router.delete('/:_id', async (req, res) => {
+    const posts = await loadPostsCollection();
+    await posts.deleteOne({_id: new mongodb.ObjectID(req.params._id)});
+    res.status(200).send('Deleted user /:_id');
 });
 
-// Add provider
-router.post('/', function (req, res) {
+//connection
+async function loadPostsCollection() {
+    const client = await mongodb.MongoClient.connect(
+        'mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
+        {
+            useNewUrlParser: true
+        });
+    
+    client.connect(err => {
+        const collection = client.db("test").collection("devices");
+        // perform actions on the collection object
+        client.close();
+        });
 
-   // validate unique name
-   Providers.init().then(function() {
-      //create client
-      Providers.create({
-         name: req.body.name,
-      }, function (err) {
-            if (err) return res.status(409).send(errors_provider(err));
-            res.status(201).send();
-      });
-   })
-});
-
-// Delete provider
-router.delete('/:id', function (req, res) {
-   Providers.deleteOne({_id: req.params.id}, function (err) {
-      if (err) return res.status(404).send(err);
-      res.status(200).send();
-   });
-});
-
-// Update provider
-router.put('/:id', function (req, res) {
-   Providers.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true}, function(err) {
-      if (err) return res.status(418).send(errors_provider(err));
-      res.status(200).send();
-   });
-});
+        return client.db('cluster0').collection('posts');
+    
+}
 
 module.exports = router;
