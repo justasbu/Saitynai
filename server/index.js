@@ -9,8 +9,14 @@ app.use(bodyParser.json())
 app.use(cors());
 
 
-const clients = require('./routes/posts')
-app.use('/posts',clients)
+const clients = require('./routes/clients')
+app.use('/clients',clients)
+const posts = require('./routes/posts')
+app.use('/posts',posts)
+
+const providers = require('./routes/providers')
+app.use('/providers',providers)
+
 
 //Handle production
 
