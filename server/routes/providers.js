@@ -3,23 +3,23 @@ const mongodb = require('mongodb');
 
 const router = express.Router();
 
-// Get posts
+// Get providers
 router.get('/', async (req,res) => {
-   const posts = await loadPostsCollection();
-   res.send(await posts.find({}).toArray());
+   const providers = await loadprovidersCollection();
+   res.send(await providers.find({}).toArray());
 });
-//Get post
+//Get provider
 
 router.get('/:id', async (req,res) => {
-    const post = await loadPostsCollection();
-    await post.findOne({_id: new mongodb.ObjectID(req.params._id)});
+    const provider = await loadprovidersCollection();
+    await provider.findOne({_id: new mongodb.ObjectID(req.params._id)});
     res.status(200).send(res)
  });
 
-//Add Post
-router.post('/', async (req, res) => {
-    const posts = await loadPostsCollection();
-    await posts.insertOne({
+//Add provider
+router.provider('/', async (req, res) => {
+    const providers = await loadprovidersCollection();
+    await providers.insertOne({
         text: req.body.text,
         createdAt: new Date()
     });
@@ -27,15 +27,15 @@ router.post('/', async (req, res) => {
 });
 
  
-//Delete Post
+//Delete provider
 router.delete('/:_id', async (req, res) => {
-    const posts = await loadPostsCollection();
-    await posts.deleteOne({_id: new mongodb.ObjectID(req.params._id)});
+    const providers = await loadprovidersCollection();
+    await providers.deleteOne({_id: new mongodb.ObjectID(req.params._id)});
     res.status(200).send('Deleted user /:_id');
 });
 
 //connection
-async function loadPostsCollection() {
+async function loadprovidersCollection() {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
         {
@@ -48,7 +48,7 @@ async function loadPostsCollection() {
         client.close();
         });
 
-        return client.db('cluster0').collection('posts');
+        return client.db('cluster0').collection('providers');
     
 }
 
