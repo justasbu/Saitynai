@@ -17,7 +17,7 @@ router.get('/:id', async (req,res) => {
  });
 
 //Add provider
-router.provider('/', async (req, res) => {
+router.post('/', async (req, res) => {
     const providers = await loadprovidersCollection();
     await providers.insertOne({
         text: req.body.text,
