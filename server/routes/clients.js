@@ -1,5 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb');
+const ord = require('./order')
 
 const router = express.Router();
 
@@ -9,13 +10,17 @@ router.get('/', async (req,res) => {
    res.send(await clients.find({}).toArray());
 });
 //Get client
-
 router.get('/:id', async (req,res) => {
     const client = await loadclientsCollection();
     await client.findOne({_id: new mongodb.ObjectID(req.params._id)});
     res.status(200).send(res)
  });
 
+ //get client order
+ router.get('/', async (req,res) => {
+     const clients = await loadclientsCollection();
+    res.send(await clients.ord.find({}).toArray());
+ })
 //Add client
 router.post('/', async (req, res) => {
     const clients = await loadclientsCollection();
