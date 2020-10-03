@@ -17,7 +17,7 @@ router.get('/:id', async (req,res) => {
  });
 
 //Add client
-router.client('/', async (req, res) => {
+router.post('/', async (req, res) => {
     const clients = await loadclientsCollection();
     await clients.insertOne({
         text: req.body.text,
@@ -47,7 +47,7 @@ async function loadclientsCollection() {
         // perform actions on the collection object
         client.close();
         });
-
+        
         return client.db('cluster0').collection('clients');
     
 }
