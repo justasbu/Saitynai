@@ -1,6 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb');
-const ord = require('./order')
+const ord = require('./orders')
 
 const router = express.Router();
 

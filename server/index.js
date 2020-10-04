@@ -14,8 +14,8 @@ app.use('/clients',clients)
 app.use('/clients/id',clients)
 const providers = require('./routes/providers')
 app.use('/providers',providers)
-const orders = require('./routes/order')
-app.use('/order',orders)
+const orders = require('./routes/orders')
+app.use('/orders',orders)
 
 
 //Handle production
