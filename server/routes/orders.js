@@ -10,7 +10,7 @@ router.get('/', async (req,res) => {
 });
 //Get order
 
-router.get('/:id', async (req,res) => {
+/*router.get('/:id', async (req,res) => {
    const ordId =  req.params.id;
    const ord = data.find(_ord => _ord.id == ordId);
    if(ord){
@@ -19,7 +19,7 @@ router.get('/:id', async (req,res) => {
    else{
        res.json({message: `item ${ordId} doesnt exist`})
    }
- });
+ });*/
 
 //Add order
 router.post('/', async (req, res) => {

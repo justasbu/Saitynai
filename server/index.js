@@ -11,7 +11,6 @@ app.use(cors());
 
 const clients = require('./routes/clients')
 app.use('/clients',clients)
-app.use('/clients/id',clients)
 const providers = require('./routes/providers')
 app.use('/providers',providers)
 const orders = require('./routes/orders')
