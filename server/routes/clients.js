@@ -12,7 +12,7 @@ router.get('/', async (req,res) => {
 //Get client
 router.get('/:id', async (req,res) => {
    const clientID =  req.params.id;
-   const client = data.find(_client => _client.id === clientID);
+   const client = this.get.find(_client => _client.id === clientID);
    if(client){
        res.json(client);
    }
