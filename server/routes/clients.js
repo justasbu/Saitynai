@@ -12,8 +12,7 @@ router.get('/', async (req,res) => {
 //Get client
 router.get('/id/:id', async (req,res) => {
     const client = await loadclientsCollection();
-    await client.findOne({_id: new mongodb.ObjectID(req.params._id)});
-    res.status(200).send(res)
+    res.status(200).send(await client.findOne({_id: new mongodb.ObjectID(req.params._id)}))
  });
 
  //get client order
