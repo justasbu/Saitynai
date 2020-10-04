@@ -38,23 +38,21 @@ router.delete('/:_id', async (req, res) => {
     await orders.deleteOne({_id: new mongodb.ObjectID(req.params._id)});
     res.status(200).send('Deleted user /:_id');
 });
-
 //connection
-async function loadordersCollection() {
-    const order = await mongodb.MongoClient.connect(
+async function loadclientsCollection() {
+    const client = await mongodb.MongoClient.connect(
         'mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
         {
             useNewUrlParser: true
         });
     
-    order.connect(err => {
-        const collection = order.db("test").collection("devices");
+    client.connect(err => {
+        const collection = client.db("test").collection("devices");
         // perform actions on the collection object
-        order.close();
+        client.close();
         });
         
-        return order.db('cluster0').collection('orders');
+        return client.db('cluster0').collection('clients');
     
 }
-
 module.exports = router;
