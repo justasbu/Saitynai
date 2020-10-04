@@ -12,7 +12,7 @@ router.get('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
    const ordId =  req.params.id;
-   const ord = data.find(_ord => _ord.id === ordId);
+   const ord = data.find(_ord => _ord.id == ordId);
    if(ord){
        res.json(ord);
    }
