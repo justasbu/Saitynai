@@ -13,6 +13,8 @@ const clients = require('./routes/clients')
 app.use('/clients',clients)
 const providers = require('./routes/providers')
 app.use('/providers',providers)
+const orders = require('./routes/orders')
+app.use('/orders',orders)
 
 
 //Handle production
