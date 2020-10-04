@@ -10,9 +10,9 @@ router.get('/', async (req,res) => {
    res.send(await clients.find({}).toArray());
 });
 //Get client
-router.get('/id/:id', async (req,res) => {
+router.get('/id', async (req,res) => {
     const client = await loadclientsCollection();
-    res.status(200).send(await client.findOne({_id: new mongodb.ObjectID(req.params._id)}))
+    res.status(200).send(await client.findOne({_id: new mongodb.ObjectID(req.params._id)}).toArray());
  });
 
  //get client order
