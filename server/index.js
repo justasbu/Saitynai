@@ -24,7 +24,7 @@ if(process.env.NODE_ENV === 'production'){
 
     //Handle SPA
 
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '../client/public/index.html'));
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '../client/dist/public/index.html'));
 }
 
 const port = process.env.PORT || 5000;
