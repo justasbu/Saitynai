@@ -1,3 +1,4 @@
+const { text } = require('body-parser');
 const express = require('express');
 const mongodb = require('mongodb');
 
@@ -35,7 +36,7 @@ router.delete('/:id', async (req,res) =>{
 router.patch('/:id',async (req,res) => {
     const providers = await loadProvidersCollection();
     var ObjectId = require('mongodb').ObjectID
-    res.send(await providers.updateOne({_id : ObjectId(req.params.id), text: "UPDATED ONE"}));
+    res.send(await providers.findOne({_id : ObjectId(req.params.id), text: "NEW NEW NEW"}));
 });
 
 
