@@ -36,7 +36,7 @@ router.patch('/:id',async (req,res) => {
     var updateObject = req.body;
     res.send(await clients.updateOne({_id : ObjectId(req.params.id)}, {$set: updateObject}));
 });
-async static function loadClientsCollection(){
+async function loadClientsCollection(){
     const client = await mongodb.MongoClient.connect("mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority",{
         useNewUrlParser: true,
         useUnifiedTopology: true
