@@ -52,11 +52,11 @@ async function loadOrdersCollection(){
     return client.db('cluster0').collection('orders');
 
 }
-// surist su orderiu ir fsio/ providerius palikt ramybej
-/*
-//Get clients
-router.get('/',async (req,res) => {
+
+//Get client orders
+router.get('/:id/orders',async (req,res) => {
+    const clients = await loadClientsCollection();
     const orders = await loadOrdersCollection();
-    res.send(await orders.find({}).toArray());
-});*/
+    res.send(await clients.find({}).orders.find({}).toArray());
+});
 module.exports = router;
