@@ -1,6 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb');
-
+const orders = require('./orders')
 const router = express.Router();
 
 //Get client
@@ -44,5 +44,19 @@ async function loadClientsCollection(){
     return client.db('cluster0').collection('clients');
 
 }
+async function loadOrdersCollection(){
+    const order = await mongodb.MongoClient.connect("mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority",{
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+    return client.db('cluster0').collection('orders');
 
+}
+// surist su orderiu ir fsio/ providerius palikt ramybej
+/*
+//Get clients
+router.get('/',async (req,res) => {
+    const orders = await loadOrdersCollection();
+    res.send(await orders.find({}).toArray());
+});*/
 module.exports = router;

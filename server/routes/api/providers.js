@@ -36,7 +36,7 @@ router.delete('/:id', async (req,res) =>{
 router.patch('/:id',async (req,res) => {
     const providers = await loadProvidersCollection();
     var ObjectId = require('mongodb').ObjectID
-    var updateObject = req.body;
+    var updateObject = req.body
     res.send(await providers.updateOne({_id : ObjectId(req.params.id)}, {$set: updateObject}));
 });
 
