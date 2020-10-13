@@ -47,8 +47,7 @@ router.get('/',async (req,res) => {
                 return {
                     _id: doc._id,
                     name: doc.name,
-                    price: doc.price,
-                    order: doc.client.order
+                    price: doc.price
                 }
             })
             
