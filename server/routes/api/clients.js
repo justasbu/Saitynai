@@ -47,7 +47,8 @@ router.get('/',async (req,res) => {
                 return {
                     _id: doc._id,
                     name: doc.name,
-                    price: doc.price
+                    price: doc.price,
+                    order: doc.order
                 }
             })
             
@@ -66,7 +67,8 @@ router.post('/', async (req,res) =>{
     const client = new Client({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        price: req.body.price
+        price: req.body.price,
+        order: req.body.order
     });
      client.save().then(result => {
         console.log(result);
