@@ -19,7 +19,6 @@ router.get('/:id/clients/:clientID',async (req,res) => {
         res.status(200).json({
             
             order: order,
-            TEST: order.client.clientID,
             request: {
                 type: 'GET',
                 url:'http://localhost:5000/api/orders' 

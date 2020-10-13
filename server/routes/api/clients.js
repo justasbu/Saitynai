@@ -14,7 +14,7 @@ router.get('/:id',async (req,res) => {
     })
     .catch(err =>{ 
         console.log(err);
-        res.status(500).json({error:err})
+        res.status(404).json({error:err})
     });
 })
     
@@ -93,7 +93,7 @@ router.delete('/:id', async (req,res) =>{
    })
    .catch(err => {
        console.log(err);
-       res.status(500).json({
+       res.status(404).json({
            error: err
        })
    })
@@ -114,7 +114,7 @@ router.patch('/:id',async (req,res) => {
    })
    .catch(err => {
     console.log(err);
-    res.status(500).json({
+    res.status(404).json({
         error: err
     })
 })
