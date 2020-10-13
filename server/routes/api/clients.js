@@ -3,8 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Client = require('../models/client')
-const Order = require('../models/order')
-
 //Get client
 router.get('/:id',async (req,res) => {
     const id = req.params.id;
@@ -41,7 +39,9 @@ router.get('/',async (req,res) => {
     .populate('order')
     .exec()
     .then(docs => {
+        console.log(docs);
         res.status(200).json({
+           
             count: docs.length,
             clients: docs.map(doc => {
                 return {
