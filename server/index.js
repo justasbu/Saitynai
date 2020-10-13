@@ -1,12 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser'); //parser for json
 const cors = require('cors');
+const mongoose = require('mongoose');
+
 
 const app = express(); 
 
 //Middleware
 app.use(bodyParser.json())
 app.use(cors());
+
+mongoose.connect('mongodb+srv://test:test@cluster0.7zz4o.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
+{
+ useNewUrlParser:true,
+ useUnifiedTopology:true
+
+});
 
 const providers = require('./routes/api/providers')
 app.use('/api/providers', providers);
